@@ -15,6 +15,9 @@
   "Войти": "Login",
   "increment": "increment",
   "decrement": "decrement",
-  "Введите логин": "login",
-  "Введите пароль": "password"
+  "логин": "username",
+  "пароль": "password",
+  "Форма авторизации": "Auth form",
+  "Неверный логин или пароль": "Uncorrect username or password",
+  "Выйти": "logout"
 }
