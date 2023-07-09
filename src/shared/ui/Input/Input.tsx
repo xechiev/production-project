@@ -2,7 +2,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
 import { classNames } from 'shared/lib/classNames/classNames';
-import React, { InputHTMLAttributes, memo, useEffect, useRef } from 'react';
+import React, {
+    InputHTMLAttributes, memo, useEffect, useRef,
+} from 'react';
 import cls from './Input.module.scss';
 
 type HTMLInputProps = Omit<
