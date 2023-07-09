@@ -27,7 +27,6 @@ Error.args = {
     theme: TextTheme.ERROR,
 };
 
-
 export const OnlyTitle = Template.bind({});
 OnlyTitle.args = {
     title: 'Some title lorem ipsum',
