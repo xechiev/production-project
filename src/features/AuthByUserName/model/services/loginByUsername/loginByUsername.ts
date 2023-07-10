@@ -33,6 +33,6 @@ export const loginByUsername = createAsyncThunk<
     } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
-        return thunkAPI.rejectWithValue('Error');
+        return thunkAPI.rejectWithValue('error');
     }
 });
