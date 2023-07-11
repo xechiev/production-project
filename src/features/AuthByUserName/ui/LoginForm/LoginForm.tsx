@@ -6,7 +6,8 @@ import { Button, ButtonTheme } from 'shared/ui/Button/Button';
 import { Input } from 'shared/ui/Input/Input';
 import { useDispatch, useSelector } from 'react-redux';
 import { Text, TextTheme } from 'shared/ui/Text/Text';
-import { DinamicModuleLoader, ReducerList } from 'shared/lib/components/DinamicModuleLoader/DinamicModuleLoader';
+import { DynamicModuleLoader, ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader';
+import { useAppDispatch } from 'shared/lib/hooks/useDispatch/useDispatch';
 import { getLoginUsername } from '../../model/selectors/getLoginUsername/getLoginUsername';
 import { getLoginPassword } from '../../model/selectors/getLoginPassword/getLoginPassword';
 import { getLoginError } from '../../model/selectors/getLoginError/getLoginError';
@@ -17,16 +18,17 @@ import cls from './LoginForm.module.scss';
 
 export interface LoginFormProps {
     className?: string;
+    onSucces: () => void;
 }
 
-const initialReducers: ReducerList = {
+const initialReducers: ReducersList = {
     loginForm: loginReducer,
 };
 
 const LoginForm = memo((props: LoginFormProps) => {
-    const { className } = props;
+    const { className, onSucces } = props;
     const { t } = useTranslation();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const username = useSelector(getLoginUsername);
     const password = useSelector(getLoginPassword);
     const error = useSelector(getLoginError);
@@ -46,13 +48,16 @@ const LoginForm = memo((props: LoginFormProps) => {
         [dispatch],
     );
 
-    const onLoginClick = useCallback(() => {
-        dispatch(loginByUsername({ username, password }));
-    }, [dispatch, password, username]);
+    const onLoginClick = useCallback(async () => {
+        const result = await dispatch(loginByUsername({ username, password }));
+        if (result.meta.requestStatus === 'fulfilled') {
+            onSucces();
+        }
+    }, [dispatch, onSucces, password, username]);
 
     return (
         // eslint-disable-next-line i18next/no-literal-string
-        <DinamicModuleLoader removeAfterUnmount reducers={initialReducers}>
+        <DynamicModuleLoader removeAfterUnmount reducers={initialReducers}>
             <div className={classNames(cls.loginForm, {}, [className])}>
                 <Text title={t('Форма авторизации')} />
                 {error && (
@@ -83,7 +88,7 @@ const LoginForm = memo((props: LoginFormProps) => {
                     {t('Войти')}
                 </Button>
             </div>
-        </DinamicModuleLoader>
+        </DynamicModuleLoader>
     );
 });
 

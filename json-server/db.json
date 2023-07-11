@@ -37,10 +37,17 @@
     {
       "id": "1",
       "username": "admin",
-      "password": 123
+      "password": "123"
     }
   ],
   "profile": {
-    "name": "typicode"
+    "first": "Mingiian",
+    "lastname": "Khechiev",
+    "age": 31,
+    "currency": "USD",
+    "country": "USA",
+    "city": "New York",
+    "username": "admin",
+    "avatar": "https://pbs.twimg.com/profile_images/446356636710363136/OYIaJ1KK_400x400.png"
   }
 }
