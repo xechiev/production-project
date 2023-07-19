@@ -1,15 +1,16 @@
 /* eslint-disable no-unused-vars */
 import {
+    CombinedState,
     configureStore,
-    getDefaultMiddleware,
+    Reducer,
     ReducersMapObject,
 } from '@reduxjs/toolkit';
 import { counterReducer } from 'entities/Counter';
 import { userReducer } from 'entities/User';
-import { $api } from 'shared/api/api';
 import { NavigateOptions, To } from 'react-router-dom';
-import { StateSchema } from './StateSchema';
+import { $api } from 'shared/api/api';
 import { createReducerManager } from './reducerManager';
+import { StateSchema } from './StateSchema';
 
 export function createReduxStore(
     initialState?: StateSchema,
@@ -25,7 +26,7 @@ export function createReduxStore(
     const reducerManager = createReducerManager(rootReducers);
 
     const store = configureStore({
-        reducer: reducerManager.reduce,
+        reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
         devTools: __IS_DEV__,
         preloadedState: initialState,
         middleware: (getDefaultMiddleware) => getDefaultMiddleware({
